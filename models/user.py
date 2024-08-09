@@ -1,5 +1,7 @@
 from enum import Enum
 from typing import Any
+
+import sqlalchemy as sa
 from sqlalchemy.orm import Mapped, mapped_column
 
 from core.db import Base

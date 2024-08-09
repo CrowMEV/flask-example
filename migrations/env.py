@@ -15,7 +15,8 @@ config = context.config
 # This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
-    config.set_main_option('sqlalchemy.url', project_config.dsn)
+    if config.get_main_option("is_testing", "False") == "False":
+        config.set_main_option("sqlalchemy.url", project_config.dsn)
 
 # add your model's MetaData object here
 # for 'autogenerate' support

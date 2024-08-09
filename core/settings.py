@@ -1,8 +1,12 @@
+from pathlib import Path
+
 from pydantic import computed_field
 from pydantic_settings import BaseSettings
 
 
 class Config(BaseSettings):
+
+    ROOT_DIR: Path = Path(__file__).parent.parent.resolve()
 
     DB_USER: str = "postgres"
     DB_PASSWORD: str = "postgres"

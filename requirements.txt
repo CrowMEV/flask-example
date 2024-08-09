@@ -1,0 +1,6 @@
+Flask
+sqlalchemy
+pydantic[email]
+pydantic-settings
+psycopg2-bynary
+alembic

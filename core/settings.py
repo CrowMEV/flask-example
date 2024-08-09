@@ -14,6 +14,8 @@ class Config(BaseSettings):
     DB_HOST: str = "localhost"
     DB_PORT: int = 5432
 
+
+    IS_DEBUG: bool = False
     @computed_field
     def dsn(self) -> str:
         return (

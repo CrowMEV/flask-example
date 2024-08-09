@@ -1,33 +1,22 @@
 #! /usr/bin/env python
-from flask import Flask, jsonify, request
-import sqlalchemy as sa
+from flask import Flask
 
-from pydantic import ValidationError
-import schemas
-import models.user as model_user
-from core.db import Session, Base, engine
-
-app = Flask(__name__)
+import users_api
+from core.db import db
+from core.settings import config
 
 
-@app.route("/users", methods=["POST"])
-def create_user():
-    try:
-        validate_data = schemas.UserCreate.model_validate_json(request.data)
-    except ValidationError as e:
-        return jsonify({"error": str(e)}), 400
-    stmt = (
-        sa.insert(model_user.User)
-        .values(**validate_data.model_dump())
-        .returning(model_user.User)
+def create_app(db_url: str):
+    app = Flask(__name__)
+    app.config["SQLALCHEMY_DATABASE_URI"] = db_url
+    db.init_app(app)
+
+    app.add_url_rule(
+        "/users", view_func=users_api.create_user, methods=["POST"]
     )
-    with Session() as session:
-        user_db = session.scalar(stmt)
-        session.commit()
-    user = schemas.UserResponse(**user_db.to_dict)
-
-    return jsonify(user.model_dump())
+    return app
 
 
 if __name__ == "__main__":
+    app = create_app(config.dsn)
     app.run(debug=True)

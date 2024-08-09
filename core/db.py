@@ -1,10 +1,6 @@
-from sqlalchemy import MetaData, create_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
-
-from core.settings import config
-
-engine = create_engine(config.dsn, echo=True)  # type: ignore
-Session = sessionmaker(engine, expire_on_commit=False)
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import MetaData
+from sqlalchemy.orm import DeclarativeBase
 
 
 class Base(DeclarativeBase):
@@ -18,3 +14,6 @@ class Base(DeclarativeBase):
             "pk": "pk_%(table_name)s",
         }
     )
+
+
+db = SQLAlchemy(model_class=Base)

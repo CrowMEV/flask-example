@@ -5,3 +5,4 @@ pydantic-settings
 psycopg2-bynary
 alembic
 pytest
+Flask-SQLAlchemy

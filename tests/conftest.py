@@ -10,7 +10,7 @@ from core.settings import config
 @pytest.fixture(scope="session")
 def pg_url() -> str:
     """
-    Provides base PostgreSQL URL for creating temporary databases.
+Provides base PostgreSQL URL for creating temporary databases.
     """
     config.DB_HOST = "localhost"
     return config.dsn  # type: ignore

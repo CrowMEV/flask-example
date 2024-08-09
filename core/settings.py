@@ -1,15 +1,9 @@
-from pathlib import Path
-
 from pydantic import computed_field
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings
+
 
 class Config(BaseSettings):
-    model_config = SettingsConfigDict(extra="allow")
 
-    ROOT_DIR: Path = Path(__file__).parent.parent.resolve()
-    MEDIA_DIR: Path = ROOT_DIR / "media"
-
-    # DB settings
     DB_USER: str = "postgres"
     DB_PASSWORD: str = "postgres"
     DB_NAME: str = "db"
@@ -23,5 +17,6 @@ class Config(BaseSettings):
             f"{self.DB_PASSWORD}@{self.DB_HOST}:"
             f"{self.DB_PORT}/{self.DB_NAME}"
         )
-    
+
+
 config = Config()

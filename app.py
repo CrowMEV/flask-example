@@ -5,7 +5,7 @@ import sqlalchemy as sa
 from pydantic import ValidationError
 import schemas
 import models.user as model_user
-from core.db import Session
+from core.db import Session, Base, engine
 
 app = Flask(__name__)
 
